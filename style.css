@@ -1,0 +1,89 @@
+:root {
+  --fg: #1f2328;
+  --muted: #59636e;
+  --border: #d1d9e0;
+  --soft: #f6f8fa;
+  --link: #0969da;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--fg);
+  background: #fff;
+}
+
+header, main, footer {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+a { color: var(--link); }
+
+/* Header */
+header { text-align: center; padding-top: 48px; }
+h1 { font-size: 2.6rem; margin: 0; line-height: 1.2; }
+.subtitle { font-size: 1.25rem; color: var(--muted); margin: 0.5rem 0; }
+.authors { margin: 0.5rem 0 0; }
+.affiliations { margin: 0 0 1rem; color: var(--muted); font-size: 0.95rem; }
+nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 32px; }
+nav a {
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: #fff;
+  text-decoration: none;
+}
+nav a:hover { opacity: 0.85; }
+
+/* Sections */
+h2 {
+  font-size: 1.5rem;
+  margin: 40px 0 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+figure { margin: 0; }
+figure img { width: 100%; height: auto; }
+figcaption, .note { font-size: 0.9rem; color: var(--muted); }
+dt { font-weight: 600; }
+dd { margin: 0 0 12px 20px; }
+li { margin-bottom: 4px; }
+
+/* Leaderboard */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; text-align: left; }
+thead th { background: var(--soft); }
+thead th.group { text-align: center; font-weight: 500; color: var(--muted); }
+thead tr:last-child th:nth-child(n+5), tbody td:nth-child(n+5) { text-align: right; }
+tbody td:nth-child(5) { font-weight: 600; }
+tbody td:nth-child(n+6) { color: var(--muted); }
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.stats li { background: var(--soft); border-radius: 8px; padding: 12px; margin: 0; }
+.stats b { display: block; font-size: 1.6rem; color: var(--fg); }
+
+/* Citation */
+pre {
+  background: var(--soft);
+  padding: 12px 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+
+footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 32px 16px 48px; }

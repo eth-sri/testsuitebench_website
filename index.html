@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TestSuiteBench</title>
+  <meta name="description" content="TestSuiteBench: can coding agents generate strong test suites from natural-language specifications?">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h2>TestSuiteBench:</h2>
+  <p class="subtitle">Can Coding Agents Generate Strong Test Suites from Specifications?</p>
+  <p class="authors">
+    Kazuki Egashira<sup>1</sup>, Niels Mündler-Sasahara<sup>1</sup>, Mark Niklas Müller<sup>2</sup>, Martin Vechev<sup>1</sup>
+  </p>
+  <p class="affiliations"><sup>1</sup>SRI Lab @ ETH Zurich &nbsp; <sup>2</sup>LogicStar.ai</p>
+  <nav>
+    <a href="#">📄 Paper</a>  <!-- TODO: link -->
+    <a href="#">💻 Code</a>   <!-- TODO: link -->
+    <a href="#">🤗 Dataset</a> <!-- TODO: link -->
+    <a href="#leaderboard">🏆 Leaderboard</a>
+  </nav>
+</header>
+
+<main>
+
+<figure>
+  <img src="static/teaser.png" alt="Overview: a coding agent writes a test suite from a specification; the suite is run on the reference executable and on mutants to compute the validity and mutation scores.">
+  <figcaption>
+    Each instance has a specification, a reference test suite, and mutants that each break one requirement.
+    The agent writes a full test suite from the specification alone. We score the suite by its validity 𝒱 and mutation score ℳ.
+  </figcaption>
+</figure>
+
+<section id="tldr">
+  <h2>TL;DR</h2>
+  <p>
+    Code generation benchmarks now ask agents to build whole applications, but test generation benchmarks still stop at single functions or bug fixes.
+    TestSuiteBench asks coding agents to write a <b>complete test suite for a real application from its specification alone</b>.
+    It contains 165 open-source applications, each with a detailed specification, a reference implementation, a reference test suite, and requirement-targeted mutants.
+  </p>
+</section>
+
+<section id="metrics">
+  <h2>What do you measure?</h2>
+  <dl>
+    <dt>Mutation score ℳ</dt>
+    <dd>
+      The fraction of mutants killed by the generated test suite; this is the main metric.
+      Only tests that pass on the reference executable count, so a test that fails everywhere cannot inflate the score.
+      The reference suite kills every mutant, so 100% is attainable.
+    </dd>
+    <dt>Validity 𝒱</dt>
+    <dd>The fraction of generated tests that pass on the reference executable. Flaky tests are removed.</dd>
+    <dt>Reference pass rate ℛ</dt>
+    <dd>For comparison, the same agent also implements the application from the same specification. ℛ is the fraction of reference tests that this implementation passes.</dd>
+  </dl>
+</section>
+
+<section id="leaderboard">
+  <h2>Leaderboard</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th colspan="4"></th><th colspan="4" class="group">Test generation</th><th class="group">Implementation</th></tr>
+        <tr><th>#</th><th>Model</th><th>Agent</th><th>Reasoning</th><th>ℳ (%)</th><th>𝒱 (%)</th><th>Cost ($)</th><th>Time (min)</th><th>ℛ (%)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🥇</td><td>Claude Opus 5</td><td>Claude Code</td><td>high</td><td>55.5</td><td>96.1</td><td>10.56</td><td>37.0</td><td>91.8</td></tr>
+        <tr><td>🥈</td><td>GPT 6 Astra</td><td>Codex</td><td>medium</td><td>50.1</td><td>94.3</td><td>2.18</td><td>12.4</td><td>92.7</td></tr>
+        <tr><td>🥉</td><td>Gemini 3.8 Flash</td><td>Gemini CLI</td><td>medium</td><td>37.9</td><td>88.2</td><td>1.63</td><td>9.3</td><td>86.2</td></tr>
+        <tr><td>4</td><td>GPT 5.6 Sol</td><td>Codex</td><td>medium</td><td>37.7</td><td>94.4</td><td>0.89</td><td>8.2</td><td>86.9</td></tr>
+        <tr><td>5</td><td>DeepSeek V4 Flash</td><td>DeepSeek harness</td><td>high</td><td>28.6</td><td>78.1</td><td>0.14</td><td>19.0</td><td>66.8</td></tr>
+        <tr><td>6</td><td>GPT 5.6 Luna</td><td>Codex</td><td>medium</td><td>19.3</td><td>74.1</td><td>0.03</td><td>4.0</td><td>65.4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    Ranked by mutation score ℳ. Cost and time are averages per instance.
+    All runs use the vendor's agent harness and a 6-hour limit per instance.
+  </p>
+</section>
+
+<section id="findings">
+  <h2>Findings</h2>
+  <ul>
+    <li><b>Agents write weak test suites.</b> The best agent kills only 55.5% of mutants, and four of six agents stay below 40%.</li>
+    <li><b>The tests are valid, just not strong.</b> 88% of generated tests pass on the reference implementation, and implementations the same agents build from the same specifications pass up to 93% of the reference tests.</li>
+    <li><b>The specification is not the bottleneck.</b> Also giving the agent the reference executable leaves the mutation score unchanged (37.7% → 38.1% for GPT 5.6 Sol).</li>
+    <li><b>Suites are too small.</b> Generated suites are smaller than the reference suites and miss the input combinations needed to expose broken requirements.</li>
+  </ul>
+</section>
+
+<section id="task">
+  <h2>What is the task?</h2>
+  <p>
+    Each instance is a real open-source command-line application written in Rust, Go, or C/C++.
+    The agent receives only a natural-language <b>specification</b> of the application's behavior and must write a complete test suite for it from scratch.
+    The reference implementation, the reference tests, and the mutants stay hidden.
+    Agents run in a Docker container without internet access.
+  </p>
+  <ul class="stats">
+    <li><b>165</b>applications</li>
+    <li><b>5.6k</b>words per specification</li>
+    <li><b>679</b>reference tests per app</li>
+    <li><b>67</b>mutants per app</li>
+  </ul>
+</section>
+
+<section id="construction">
+  <h2>How is the benchmark built?</h2>
+  <ol>
+    <li>
+      <b>Draft specification.</b> We start from the reference implementations and test suites of <a href="https://programbench.com">ProgramBench</a> and filter out flaky and resource-heavy tests.
+      A coding agent then writes a specification describing every tested behavior.
+    </li>
+    <li>
+      <b>Requirement-targeted mutants.</b> For each specification section, a coding agent modifies the reference implementation to break one requirement.
+      We refine the mutants so that 73% are killed by exactly one reference test (up from 32%).
+    </li>
+    <li>
+      <b>Specification refinement.</b> Agents generate implementations and tests from the draft.
+      We fix every failure caused by an ambiguous or contradictory specification and repeat until fewer than 5% of failures come from the specification. A final manual check follows.
+    </li>
+  </ol>
+</section>
+
+<section id="citation">
+  <h2>Citation</h2>
+  <!-- TODO: update once the paper is public -->
+  <pre>@misc{testsuitebench2026,
+  title  = {TestSuiteBench: Coding Agents Struggle to Generate Strong Test Suites from Specifications},
+  author = {Egashira, Kazuki and M{\"u}ndler-Sasahara, Niels and M{\"u}ller, Mark Niklas and Vechev, Martin},
+  year   = {2026}
+}</pre>
+</section>
+
+</main>
+
+<footer>
+  Last updated 2026-09-30.
+</footer>
+
+</body>
+</html>
