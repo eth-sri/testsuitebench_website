@@ -46,6 +46,7 @@ h2 {
   padding-bottom: 4px;
   border-bottom: 1px solid var(--border);
 }
+header h2 { border-bottom: none; padding-bottom: 0; }
 figure { margin: 0; }
 figure img { width: 100%; height: auto; }
 figcaption, .note { font-size: 0.9rem; color: var(--muted); }

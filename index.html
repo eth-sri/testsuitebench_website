@@ -44,6 +44,22 @@
   </p>
 </section>
 
+<section id="task">
+  <h2>What is the task?</h2>
+  <p>
+    Each instance is a real open-source command-line application written in Rust, Go, or C/C++.
+    The agent receives only a natural-language <b>specification</b> of the application's behavior and must write a complete test suite for it from scratch.
+    The reference implementation, the reference tests, and the mutants stay hidden.
+    Agents run in a Docker container without internet access.
+  </p>
+  <ul class="stats">
+    <li><b>165</b>applications</li>
+    <li><b>5.6k</b>words per specification</li>
+    <li><b>679</b>reference tests per app</li>
+    <li><b>67</b>mutants per app</li>
+  </ul>
+</section>
+
 <section id="metrics">
   <h2>What do you measure?</h2>
   <dl>
@@ -89,24 +105,7 @@
   <ul>
     <li><b>Agents write weak test suites.</b> The best agent kills only 55.5% of mutants, and four of six agents stay below 40%.</li>
     <li><b>The tests are valid, just not strong.</b> 88% of generated tests pass on the reference implementation, and implementations the same agents build from the same specifications pass up to 93% of the reference tests.</li>
-    <li><b>The specification is not the bottleneck.</b> Also giving the agent the reference executable leaves the mutation score unchanged (37.7% → 38.1% for GPT 5.6 Sol).</li>
-    <li><b>Suites are too small.</b> Generated suites are smaller than the reference suites and miss the input combinations needed to expose broken requirements.</li>
-  </ul>
-</section>
-
-<section id="task">
-  <h2>What is the task?</h2>
-  <p>
-    Each instance is a real open-source command-line application written in Rust, Go, or C/C++.
-    The agent receives only a natural-language <b>specification</b> of the application's behavior and must write a complete test suite for it from scratch.
-    The reference implementation, the reference tests, and the mutants stay hidden.
-    Agents run in a Docker container without internet access.
-  </p>
-  <ul class="stats">
-    <li><b>165</b>applications</li>
-    <li><b>5.6k</b>words per specification</li>
-    <li><b>679</b>reference tests per app</li>
-    <li><b>67</b>mutants per app</li>
+    <li><b>Model-generated test suites are small.</b> Generated suites are smaller than the reference suites and miss the input combinations needed to expose broken requirements.</li>
   </ul>
 </section>
 
