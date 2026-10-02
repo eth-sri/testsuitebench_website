@@ -6,6 +6,17 @@
   <meta name="robots" content="noindex, nofollow, noarchive">
   <title>TestSuiteBench</title>
   <meta name="description" content="TestSuiteBench: Coding Agents Struggle to Generate Strong Test Suites from Specifications">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TestSuiteBench">
+  <meta property="og:description" content="Coding Agents Struggle to Generate Strong Test Suites from Specifications">
+  <meta property="og:image" content="https://eth-sri.github.io/testsuitebench_website/static/preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TestSuiteBench">
+  <meta name="twitter:description" content="Coding Agents Struggle to Generate Strong Test Suites from Specifications">
+  <meta name="twitter:image" content="https://eth-sri.github.io/testsuitebench_website/static/preview.png">
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
   <link rel="stylesheet" href="style.css?v=2">
 </head>
@@ -57,7 +68,7 @@
 
   <h2>What is TestSuiteBench?</h2>
   <p>
-    Code generation benchmarks now ask agents to build whole applications, but test generation benchmarks still stop at single functions or bug fixes.
+    <!-- Code generation benchmarks now ask agents to build whole applications, but test generation benchmarks still stop at single functions or bug fixes. -->
     TestSuiteBench asks coding agents to write a <b>complete test suite for a real application from its specification alone</b>.
     It contains 165 open-source applications, each with a detailed specification, a reference implementation, a reference test suite, and requirement-targeted mutants.
   </p>
@@ -113,25 +124,25 @@
     <img src="static/construction.svg" alt="Top: from a GitHub repository, the pipeline obtains the implementation I, tests T, a draft specification S', mutants M and the final specification S. Bottom: the corresponding sets of admissible implementations.">
     <img src="static/conceptual.svg" alt="Conceptual view in the space of implementations: the set admitted by the tests T is aligned with the set admitted by the specification S.">
     <figcaption>
-      <b>Top:</b> we obtain a reference implementation <i>I</i><sup>*</sup>, executable <i>E</i><sup>*</sup> and test suite <i>T</i><sup>*</sup> from a GitHub repository <i>R</i>.
-      We then write a draft specification <i>S</i>′ and mutants <i>M</i> that each violate one requirement, and finally refine <i>S</i>′ into the final specification <i>S</i>.
-      <b>Bottom:</b> in the space of implementations, we define the admissible set using <i>T</i> and align it with the set admitted by <i>S</i>.
+      <b>Top:</b> we obtain a reference implementation \(I^*\), executable \(E^*\) and test suite \(T^*\) from a GitHub repository \(R\).
+      We then write a draft specification \(S'\) and mutants \(M\) that each violate one requirement, and finally refine \(S'\) into the final specification \(S\).
+      <b>Bottom:</b> in the space of implementations, we define the admissible set using \(T\) and align it with the set admitted by \(S\).
     </figcaption>
   </figure>
   <ol>
     <li>
-      <b>Implementation <i>I</i> and tests <i>T</i>.</b> We start from the reference implementations and test suites of <a href="https://programbench.com">ProgramBench</a> and filter out flaky and resource-heavy tests.
+      <b>Implementation \(I\) and tests \(T\).</b> We start from the reference implementations and test suites of <a href="https://programbench.com">ProgramBench</a> and filter out flaky and resource-heavy tests.
     </li>
     <li>
-      <b>Draft specification <i>S</i>′.</b> A coding agent writes a specification describing every behavior tested by <i>T</i>.
+      <b>Draft specification \(S'\).</b> A coding agent writes a specification describing every behavior tested by \(T\).
     </li>
     <li>
-      <b>Mutants <i>M</i>.</b> For each specification section, a coding agent modifies <i>I</i> to break one requirement.
-      We refine the mutants so that 73% are killed by exactly one test in <i>T</i> (up from 32%).
+      <b>Mutants \(M\).</b> For each specification section, a coding agent modifies \(I\) to break one requirement.
+      We refine the mutants so that 73% are killed by exactly one test in \(T\) (up from 32%).
     </li>
     <li>
-      <b>Final specification <i>S</i>.</b> Agents generate implementations and tests from <i>S</i>′.
-      We fix every failure caused by an ambiguous or contradictory specification and repeat until fewer than 5% spec-related errors are detected. A final manual check follows, giving <i>S</i>.
+      <b>Final specification \(S\).</b> Agents generate implementations and tests from \(S'\).
+      We fix every failure caused by an ambiguous or contradictory specification and repeat until fewer than 5% spec-related errors are detected. A final manual check follows, giving \(S\).
     </li>
   </ol>
 </section>
