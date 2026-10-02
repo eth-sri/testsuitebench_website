@@ -22,19 +22,11 @@
     <a class="disabled" aria-disabled="true">📄 Paper (coming soon)</a>
     <a href="https://github.com/eth-sri/testsuitebench">💻 Code</a>
     <a href="https://huggingface.co/collections/eth-sri/testsuitebench">🤗 Dataset</a>
-    <a href="#leaderboard">🏆 Leaderboard</a>
   </nav>
 </header>
 
 <main>
 
-<figure>
-  <img src="static/testbench.svg" alt="Overview: a coding agent writes a test suite from a specification; the suite is run on the reference executable and on mutants to compute the validity and mutation scores.">
-  <figcaption>
-    Each instance has a specification, a reference test suite, and mutants that each break one requirement.
-    The agent writes a full test suite from the specification alone. We score the suite by its validity 𝒱 and mutation score ℳ.
-  </figcaption>
-</figure>
 
 <section id="tldr">
   <h2>TL;DR</h2>
@@ -45,24 +37,29 @@
   </p>
 </section>
 
-<section id="task">
-  <h2>What is the task?</h2>
-  <p>
-    Each instance is a real open-source command-line application written in Rust, Go, or C/C++.
-    The agent receives only a natural-language <b>specification</b> of the application's behavior and must write a complete test suite for it from scratch.
-    The reference implementation, the reference tests, and the mutants stay hidden.
-    Agents run in a Docker container without internet access.
+<section id="leaderboard">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th colspan="2"></th><th colspan="4" class="group">Test generation</th><th class="group">Implementation</th></tr>
+        <tr><th>#</th><th>Model</th><th>ℳ (%)</th><th>𝒱 (%)</th><th>Cost ($)</th><th>Time (min)</th><th>ℛ (%)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🥇</td><td><span class="model" data-tip="Claude Code · reasoning: high"><img src="static/logos/claude.svg" alt="">Claude Opus 5</span></td><td>55.5</td><td>96.1</td><td>10.56</td><td>37.0</td><td>91.8</td></tr>
+        <tr><td>🥈</td><td><span class="model" data-tip="Codex · reasoning: medium"><img src="static/logos/codex.svg" alt="">GPT 6 Astra</span></td><td>50.1</td><td>94.3</td><td>2.18</td><td>12.4</td><td>92.7</td></tr>
+        <tr><td>🥉</td><td><span class="model" data-tip="Gemini CLI · reasoning: medium"><img src="static/logos/gemini.svg" alt="">Gemini 3.8 Flash</span></td><td>37.9</td><td>88.2</td><td>1.63</td><td>9.3</td><td>86.2</td></tr>
+        <tr><td>4</td><td><span class="model" data-tip="Codex · reasoning: medium"><img src="static/logos/codex.svg" alt="">GPT 5.6 Sol</span></td><td>37.7</td><td>94.4</td><td>0.89</td><td>8.2</td><td>86.9</td></tr>
+        <tr><td>5</td><td><span class="model" data-tip="DeepSeek harness · reasoning: high"><img src="static/logos/deepseek.svg" alt="">DeepSeek V4 Flash</span></td><td>28.6</td><td>78.1</td><td>0.14</td><td>19.0</td><td>66.8</td></tr>
+        <tr><td>6</td><td><span class="model" data-tip="Codex · reasoning: medium"><img src="static/logos/codex.svg" alt="">GPT 5.6 Luna</span></td><td>19.3</td><td>74.1</td><td>0.03</td><td>4.0</td><td>65.4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    Ranked by mutation score ℳ. Cost and time are averages per instance.
+    All runs use the vendor's agent harness and a 6-hour limit per instance.
   </p>
-  <ul class="stats">
-    <li><b>165</b>applications</li>
-    <li><b>5.6k</b>words per specification</li>
-    <li><b>679</b>reference tests per app</li>
-    <li><b>67</b>mutants per app</li>
-  </ul>
-</section>
 
-<section id="metrics">
-  <h2>What do you measure?</h2>
+  <h3>What do you measure?</h3>
   <dl>
     <dt>Mutation score ℳ</dt>
     <dd>
@@ -77,28 +74,27 @@
   </dl>
 </section>
 
-<section id="leaderboard">
-  <h2>Leaderboard</h2>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th colspan="4"></th><th colspan="4" class="group">Test generation</th><th class="group">Implementation</th></tr>
-        <tr><th>#</th><th>Model</th><th>Agent</th><th>Reasoning</th><th>ℳ (%)</th><th>𝒱 (%)</th><th>Cost ($)</th><th>Time (min)</th><th>ℛ (%)</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>🥇</td><td>Claude Opus 5</td><td>Claude Code</td><td>high</td><td>55.5</td><td>96.1</td><td>10.56</td><td>37.0</td><td>91.8</td></tr>
-        <tr><td>🥈</td><td>GPT 6 Astra</td><td>Codex</td><td>medium</td><td>50.1</td><td>94.3</td><td>2.18</td><td>12.4</td><td>92.7</td></tr>
-        <tr><td>🥉</td><td>Gemini 3.8 Flash</td><td>Gemini CLI</td><td>medium</td><td>37.9</td><td>88.2</td><td>1.63</td><td>9.3</td><td>86.2</td></tr>
-        <tr><td>4</td><td>GPT 5.6 Sol</td><td>Codex</td><td>medium</td><td>37.7</td><td>94.4</td><td>0.89</td><td>8.2</td><td>86.9</td></tr>
-        <tr><td>5</td><td>DeepSeek V4 Flash</td><td>DeepSeek harness</td><td>high</td><td>28.6</td><td>78.1</td><td>0.14</td><td>19.0</td><td>66.8</td></tr>
-        <tr><td>6</td><td>GPT 5.6 Luna</td><td>Codex</td><td>medium</td><td>19.3</td><td>74.1</td><td>0.03</td><td>4.0</td><td>65.4</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p class="note">
-    Ranked by mutation score ℳ. Cost and time are averages per instance.
-    All runs use the vendor's agent harness and a 6-hour limit per instance.
+<section id="task">
+  <h2>What is the task?</h2>
+  <figure>
+    <img src="static/testbench.svg" alt="Overview: a coding agent writes a test suite from a specification; the suite is run on the reference executable and on mutants to compute the validity and mutation scores.">
+    <figcaption>
+      Each instance has a specification, a reference test suite, and mutants that each break one requirement.
+      The agent writes a full test suite from the specification alone. We score the suite by its validity 𝒱 and mutation score ℳ.
+    </figcaption>
+  </figure>
+  <p>
+    Each instance is a real open-source command-line application written in Rust, Go, or C/C++.
+    The agent receives only a natural-language <b>specification</b> of the application's behavior and must write a complete test suite for it from scratch.
+    The reference implementation, the reference tests, and the mutants stay hidden.
+    Agents run in a Docker container without internet access.
   </p>
+  <ul class="stats">
+    <li><b>165</b>applications</li>
+    <li><b>5.6k</b>words per specification</li>
+    <li><b>679</b>reference tests per app</li>
+    <li><b>67</b>mutants per app</li>
+  </ul>
 </section>
 
 <section id="findings">
