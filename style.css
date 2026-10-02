@@ -127,3 +127,9 @@ h3 { font-size: 1.15rem; margin: 28px 0 8px; }
 .affil-logos .logic { height: 25px; justify-self: start; }
 .footer-logos { margin: 0 auto 16px; }
 .footer-logos img { filter: none !important; opacity: .8 !important; }
+
+@media (max-width: 600px) {
+  .affil-logos { column-gap: 16px; }
+  .affil-logos img { height: 13px; }
+  .affil-logos .logic { height: 15px; }
+}
