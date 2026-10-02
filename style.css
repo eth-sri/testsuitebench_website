@@ -6,6 +6,7 @@
   --link: #c9741a;
   --accent: #EC963B;
   --accent-soft: #fdf3e6;
+  --page: #fff5e8;
 }
 
 * { box-sizing: border-box; }
@@ -99,3 +100,8 @@ pre {
 footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 32px 16px 48px; }
 
 .logos { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto 16px; }
+
+.authors a { color: inherit; text-decoration: none; border-bottom: 1px dotted rgba(255,255,255,.7); }
+.authors a:hover { border-bottom-style: solid; }
+nav a.disabled { opacity: 0.55; cursor: default; }
+nav a.disabled:hover { opacity: 0.55; }
