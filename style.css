@@ -3,7 +3,9 @@
   --muted: #59636e;
   --border: #d1d9e0;
   --soft: #f6f8fa;
-  --link: #0969da;
+  --link: #c9741a;
+  --accent: #EC963B;
+  --accent-soft: #fdf3e6;
 }
 
 * { box-sizing: border-box; }
@@ -15,7 +17,7 @@ body {
   background: #fff;
 }
 
-header, main, footer {
+main, footer {
   max-width: 880px;
   margin: 0 auto;
   padding: 0 16px;
@@ -24,14 +26,20 @@ header, main, footer {
 a { color: var(--link); }
 
 /* Header */
-header { text-align: center; padding-top: 48px; }
+header {
+  text-align: center;
+  padding: 48px 16px 8px;
+  background: var(--accent);
+  color: #fff;
+}
+header .subtitle, header .affiliations { color: rgba(255,255,255,.9); }
 h1 { font-size: 2.6rem; margin: 0; line-height: 1.2; }
 .subtitle { font-size: 1.25rem; color: var(--muted); margin: 0.5rem 0; }
 .authors { margin: 0.5rem 0 0; }
 .affiliations { margin: 0 0 1rem; color: var(--muted); font-size: 0.95rem; }
-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 32px; }
+nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 0 32px; }
 nav a {
-  padding: 6px 16px;
+  padding: 6px 18px;
   border-radius: 999px;
   background: var(--fg);
   color: #fff;
@@ -44,7 +52,7 @@ h2 {
   font-size: 1.5rem;
   margin: 40px 0 12px;
   padding-bottom: 4px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--accent);
 }
 header h2 { border-bottom: none; padding-bottom: 0; }
 figure { margin: 0; }
@@ -58,7 +66,7 @@ li { margin-bottom: 4px; }
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; text-align: left; }
-thead th { background: var(--soft); }
+thead th { background: var(--accent-soft); }
 thead th.group { text-align: center; font-weight: 500; color: var(--muted); }
 thead tr:last-child th:nth-child(n+5), tbody td:nth-child(n+5) { text-align: right; }
 tbody td:nth-child(5) { font-weight: 600; }
@@ -75,7 +83,7 @@ tbody td:nth-child(n+6) { color: var(--muted); }
   color: var(--muted);
   font-size: 0.9rem;
 }
-.stats li { background: var(--soft); border-radius: 8px; padding: 12px; margin: 0; }
+.stats li { background: var(--accent-soft); border-radius: 8px; padding: 12px; margin: 0; }
 .stats b { display: block; font-size: 1.6rem; color: var(--fg); }
 
 /* Citation */
@@ -85,6 +93,9 @@ pre {
   border-radius: 6px;
   overflow-x: auto;
   font-size: 0.85rem;
+  border-left: 4px solid var(--accent);
 }
 
 footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 32px 16px 48px; }
+
+.logos { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto 16px; }

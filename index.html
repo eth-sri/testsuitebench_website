@@ -28,7 +28,7 @@
 <main>
 
 <figure>
-  <img src="static/teaser.png" alt="Overview: a coding agent writes a test suite from a specification; the suite is run on the reference executable and on mutants to compute the validity and mutation scores.">
+  <img src="static/testbench.svg" alt="Overview: a coding agent writes a test suite from a specification; the suite is run on the reference executable and on mutants to compute the validity and mutation scores.">
   <figcaption>
     Each instance has a specification, a reference test suite, and mutants that each break one requirement.
     The agent writes a full test suite from the specification alone. We score the suite by its validity 𝒱 and mutation score ℳ.
@@ -111,18 +111,29 @@
 
 <section id="construction">
   <h2>How is the benchmark built?</h2>
+  <figure>
+    <img src="static/construction.svg" alt="Top: from a GitHub repository, the pipeline obtains the implementation I, tests T, a draft specification S', mutants M and the final specification S. Bottom: the corresponding sets of admissible implementations.">
+    <img src="static/conceptual.svg" alt="Conceptual view in the space of implementations: the set admitted by the tests T is aligned with the set admitted by the specification S.">
+    <figcaption>
+      <b>Top:</b> we obtain a reference implementation <i>I</i><sup>*</sup>, executable <i>E</i><sup>*</sup> and test suite <i>T</i><sup>*</sup> from a GitHub repository <i>R</i>.
+      We then write a draft specification <i>S</i>′ and mutants <i>M</i> that each violate one requirement, and finally refine <i>S</i>′ into the final specification <i>S</i>.
+      <b>Bottom:</b> in the space of implementations, we define the admissible set using <i>T</i> and align it with the set admitted by <i>S</i>.
+    </figcaption>
+  </figure>
   <ol>
     <li>
-      <b>Draft specification.</b> We start from the reference implementations and test suites of <a href="https://programbench.com">ProgramBench</a> and filter out flaky and resource-heavy tests.
-      A coding agent then writes a specification describing every tested behavior.
+      <b>Implementation <i>I</i> and tests <i>T</i>.</b> We start from the reference implementations and test suites of <a href="https://programbench.com">ProgramBench</a> and filter out flaky and resource-heavy tests.
     </li>
     <li>
-      <b>Requirement-targeted mutants.</b> For each specification section, a coding agent modifies the reference implementation to break one requirement.
-      We refine the mutants so that 73% are killed by exactly one reference test (up from 32%).
+      <b>Draft specification <i>S</i>′.</b> A coding agent writes a specification describing every behavior tested by <i>T</i>.
     </li>
     <li>
-      <b>Specification refinement.</b> Agents generate implementations and tests from the draft.
-      We fix every failure caused by an ambiguous or contradictory specification and repeat until fewer than 5% of failures come from the specification. A final manual check follows.
+      <b>Mutants <i>M</i>.</b> For each specification section, a coding agent modifies <i>I</i> to break one requirement.
+      We refine the mutants so that 73% are killed by exactly one test in <i>T</i> (up from 32%).
+    </li>
+    <li>
+      <b>Final specification <i>S</i>.</b> Agents generate implementations and tests from <i>S</i>′.
+      We fix every failure caused by an ambiguous or contradictory specification and repeat until fewer than 5% spec-related errors are detected. A final manual check follows, giving <i>S</i>.
     </li>
   </ol>
 </section>
@@ -130,7 +141,7 @@
 <section id="citation">
   <h2>Citation</h2>
   <!-- TODO: update once the paper is public -->
-  <pre>@misc{testsuitebench2026,
+  <pre>@misc{egashira2026testsuitebench,
   title  = {TestSuiteBench: Coding Agents Struggle to Generate Strong Test Suites from Specifications},
   author = {Egashira, Kazuki and M{\"u}ndler-Sasahara, Niels and M{\"u}ller, Mark Niklas and Vechev, Martin},
   year   = {2026}
@@ -140,6 +151,7 @@
 </main>
 
 <footer>
+  <img class="logos" src="static/eth_logo.svg" alt="SRI Lab, ETH Zurich, LogicStar.ai"><br>
   Last updated 2026-09-30.
 </footer>
 
