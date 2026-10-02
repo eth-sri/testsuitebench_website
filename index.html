@@ -28,15 +28,6 @@
 <main>
 
 
-<section id="tldr">
-  <h2>TL;DR</h2>
-  <p>
-    Code generation benchmarks now ask agents to build whole applications, but test generation benchmarks still stop at single functions or bug fixes.
-    TestSuiteBench asks coding agents to write a <b>complete test suite for a real application from its specification alone</b>.
-    It contains 165 open-source applications, each with a detailed specification, a reference implementation, a reference test suite, and requirement-targeted mutants.
-  </p>
-</section>
-
 <section id="leaderboard">
   <div class="table-wrap">
     <table>
@@ -59,23 +50,23 @@
     All runs use the vendor's agent harness and a 6-hour limit per instance.
   </p>
 
-  <h3>What do you measure?</h3>
-  <dl>
-    <dt>Mutation score ℳ</dt>
-    <dd>
-      The fraction of mutants killed by the generated test suite; this is the main metric.
-      Only tests that pass on the reference executable count, so a test that fails everywhere cannot inflate the score.
-      The reference suite kills every mutant, so 100% is attainable.
-    </dd>
-    <dt>Validity 𝒱</dt>
-    <dd>The fraction of generated tests that pass on the reference executable. Flaky tests are removed.</dd>
-    <dt>Reference pass rate ℛ</dt>
-    <dd>For comparison, the same agent also implements the application from the same specification. ℛ is the fraction of reference tests that this implementation passes.</dd>
-  </dl>
+
+  <h2>TL;DR</h2>
+  <p>
+    Code generation benchmarks now ask agents to build whole applications, but test generation benchmarks still stop at single functions or bug fixes.
+    TestSuiteBench asks coding agents to write a <b>complete test suite for a real application from its specification alone</b>.
+    It contains 165 open-source applications, each with a detailed specification, a reference implementation, a reference test suite, and requirement-targeted mutants.
+  </p>
 </section>
 
 <section id="task">
   <h2>What is the task?</h2>
+  <ul class="stats">
+    <li><b>165</b>applications</li>
+    <li><b>5.6k</b>words per specification</li>
+    <li><b>679</b>reference tests per app</li>
+    <li><b>67</b>mutants per app</li>
+  </ul>
   <figure>
     <img src="static/testbench.svg" alt="Overview: a coding agent writes a test suite from a specification; the suite is run on the reference executable and on mutants to compute the validity and mutation scores.">
     <figcaption>
@@ -88,13 +79,19 @@
     The agent receives only a natural-language <b>specification</b> of the application's behavior and must write a complete test suite for it from scratch.
     The reference implementation, the reference tests, and the mutants stay hidden.
     Agents run in a Docker container without internet access.
+    We measure the following metrics.
   </p>
-  <ul class="stats">
-    <li><b>165</b>applications</li>
-    <li><b>5.6k</b>words per specification</li>
-    <li><b>679</b>reference tests per app</li>
-    <li><b>67</b>mutants per app</li>
-  </ul>
+  <dl>
+    <dt>Mutation score ℳ</dt>
+    <dd>
+      The fraction of mutants killed by the generated test suite; this is the main metric.
+      Only tests that pass on the reference executable count, so a test that fails everywhere cannot inflate the score.
+    </dd>
+    <dt>Validity 𝒱</dt>
+    <dd>The fraction of generated tests that pass on the reference executable. Flaky tests are removed.</dd>
+    <dt>Reference pass rate ℛ</dt>
+    <dd>For comparison, the same agent also implements the application from the same specification. ℛ is the fraction of reference tests that this implementation passes.</dd>
+  </dl>
 </section>
 
 <section id="findings">
