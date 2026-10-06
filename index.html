@@ -61,8 +61,12 @@
     </table>
   </div>
   <p class="note">
-    Ranked by mutation score ℳ. Metrics are detailed <a href="#task">here</a>. Cost and time are averages per instance.
-    All runs use the vendor's agent harness and a 6-hour limit per instance.
+    ℳ (mutation score. main metric): % of mutants killed by the generated tests.
+    𝒱 (validity rate): % of generated tests that pass on the reference.
+    ℛ (reference pass rate): % of reference tests passed by the agent's own implementation.
+    See <a href="#task">details</a>.
+    <!-- Cost and time are averages per instance. -->
+    <!-- All runs use the vendor's agent harness. -->
   </p>
 
 
@@ -102,8 +106,8 @@
       The fraction of mutants killed by the generated test suite; this is the main metric.
       Only tests that pass on the reference executable count, so a test that fails everywhere cannot inflate the score.
     </dd>
-    <dt>Validity 𝒱</dt>
-    <dd>The fraction of generated tests that pass on the reference executable. Flaky tests are removed.</dd>
+    <dt>Validity rate 𝒱</dt>
+    <dd>The fraction of generated tests that pass on the reference executable. Flaky tests are considered as invalid.</dd>
     <dt>Reference pass rate ℛ</dt>
     <dd>For comparison, the same agent also implements the application from the same specification. ℛ is the fraction of reference tests that this implementation passes.</dd>
   </dl>
